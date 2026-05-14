@@ -1,0 +1,11 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Description": "Shows Claude Pro usage from API",
+        "Icon": "claude",
+        "Id": "com.celo.claudeusage",
+        "Name": "Claude Usage",
+        "Version": "1.1"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
