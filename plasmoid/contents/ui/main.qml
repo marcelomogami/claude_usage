@@ -17,7 +17,7 @@ PlasmoidItem {
         connectedSources: [root.scriptCmd]
         interval: 300000
         onNewData: function(source, data) {
-            if (data["exit code"] !== 0) return;
+            if (parseInt(data["exit code"]) !== 0) return;
             var out = data["stdout"].trim();
             if (out.length > 0) label.text = out;
         }
