@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.6 — 2026-05-19
+
+- Teto de cota do dia integrado ao `7d` como `(↑XX%)`, sem segmento separado — linguagem visual simétrica com o reset de 5h
+- Ícone de reset da janela de 5h trocado de `↻` para `` (U+F0E2, Font Awesome rotate-left), renderizado via fallback de fonte no Qt6
+
 ## 1.5 — 2026-05-19
 
 - Horário de reset da janela de 5h exibido ao lado do percentual: `5h: XX% (↻HH:MM)`

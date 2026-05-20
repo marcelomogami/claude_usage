@@ -5,11 +5,11 @@ Widget KDE Plasma 6 que exibe o uso da cota do Claude Pro na barra do painel.
 ## O que exibe
 
 ```
-Claude  5h: 20% (↻18:30)  |  7d: 40%  |  max: 57% | ●
+Claude  5h: 20% (18:30)  |  7d: 40% (↑57%) | ●
 ```
 
-- **5h:** utilização na janela de 5 horas; entre parênteses, hora local em que a janela reinicia (`five_hour.resets_at`)
-- **7d:** utilização na janela de 7 dias
+- **5h:** utilização na janela de 5 horas; entre parênteses, ícone  (U+F0E2, Font Awesome) + hora local em que a janela reinicia (`five_hour.resets_at`)
+- **7d:** utilização na janela de 7 dias; entre parênteses, `↑` + teto de cota acumulado até o fim do dia (`seven_day.resets_at`)
 - **max:** teto de cota acumulado que se pode atingir até o fim do dia, dividindo os 100% da janela de 7 dias em 7 dias iguais. O início do ciclo é derivado automaticamente de `seven_day.resets_at` da própria API — sem configuração
 - **●:** status operacional do Claude (`status.claude.com`) — verde, amarelo, laranja ou vermelho
 

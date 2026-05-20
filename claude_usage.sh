@@ -11,7 +11,7 @@ if [[ "$MODE" == "all" || "$MODE" == "usage" ]]; then
     # Horário (local) em que a janela de 5h reinicia
     FIVE_RESET=$(echo "$DATA" | jq -r '.five_hour.resets_at // empty')
     if [[ -n "$FIVE_RESET" ]]; then
-        FIVE_H="${FIVE_H} (↻$(date -d "$FIVE_RESET" '+%H:%M'))"
+        FIVE_H="${FIVE_H} ($(printf '')$(date -d "$FIVE_RESET" '+%H:%M'))"
     fi
 
     # Meta do dia: 100% da cota divididos em 7 dias. O início do ciclo vem da
@@ -25,6 +25,7 @@ if [[ "$MODE" == "all" || "$MODE" == "usage" ]]; then
         (( DAY_IDX < 1 )) && DAY_IDX=1
         (( DAY_IDX > 7 )) && DAY_IDX=7
         TARGET=$(awk "BEGIN{printf \"%d\", $DAY_IDX*100/7 + 0.5}")
+        WEEK="${WEEK} (↑${TARGET}%)"
     fi
 fi
 
@@ -34,7 +35,7 @@ if [[ "$MODE" == "all" || "$MODE" == "status" ]]; then
 fi
 
 case "$MODE" in
-    usage)  echo "Claude  5h: $FIVE_H  |  7d: $WEEK  |  max: ${TARGET}%" ;;
+    usage)  echo "Claude  5h: $FIVE_H  |  7d: $WEEK" ;;
     status) echo "$STATUS" ;;
-    *)      echo "Claude  5h: $FIVE_H  |  7d: $WEEK  |  max: ${TARGET}%::$STATUS" ;;
+    *)      echo "Claude  5h: $FIVE_H  |  7d: $WEEK::$STATUS" ;;
 esac
