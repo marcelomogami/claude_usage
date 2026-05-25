@@ -84,10 +84,17 @@ if [[ "$MODE" == "all" || "$MODE" == "usage" ]]; then
     FIVE_H=$(echo "$DATA" | jq -r '.five_hour.utilization | round | tostring + "%"')
     WEEK=$(echo "$DATA"   | jq -r '.seven_day.utilization  | round | tostring + "%"')
 
-    # Horário (local) em que a janela de 5h reinicia
+    # Pacing e horário de reset da janela de 5h.
     FIVE_RESET=$(echo "$DATA" | jq -r '.five_hour.resets_at // empty')
     if [[ -n "$FIVE_RESET" ]]; then
-        FIVE_H="${FIVE_H} ($(printf '')$(date -d "$FIVE_RESET" '+%H:%M'))"
+        NOW=$(date +%s)
+        FIVE_NEXT=$(date -d "$FIVE_RESET" +%s)
+        FIVE_START=$(( FIVE_NEXT - 5 * 3600 ))
+        FIVE_ELAPSED=$(( (NOW - FIVE_START) / 60 ))
+        (( FIVE_ELAPSED < 0 ))   && FIVE_ELAPSED=0
+        (( FIVE_ELAPSED > 300 )) && FIVE_ELAPSED=300
+        FIVE_TARGET=$(awk "BEGIN{printf \"%d\", $FIVE_ELAPSED*100/300 + 0.5}")
+        FIVE_H="${FIVE_H} (↑${FIVE_TARGET}%) ($(printf '')$(date -d "$FIVE_RESET" '+%H:%M'))"
     fi
 
     # Meta em tempo real: minutos decorridos desde o início do ciclo de 7 dias.

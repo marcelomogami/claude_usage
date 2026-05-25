@@ -5,6 +5,7 @@
 - Indicador `↑XX%` do 7d agora em tempo real por minuto: usa `ELAPSED_MINUTES / CYCLE_MINUTES × 100` em vez de `DAY_IDX × 100 / 7` — sobe ~0,05% a cada ciclo de 5 min em vez de travar o dia inteiro no mesmo valor
 - Cache local de 60s em `~/.cache/claudebar/usage.json` com `flock` — evita requisições duplicadas à API (ex: reload manual coincidindo com o timer)
 - Refresh automático do token OAuth: detecta `expiresAt` prestes a vencer e faz `POST /v1/oauth/token` com `grant_type: refresh_token`, atualizando `~/.claude/.credentials.json` sem intervenção manual
+- Indicador de pacing `(↑XX%)` adicionado também à janela de 5h, exibido entre o percentual e o horário de reset: `5h: 14% (↑12%) (13:50)`
 
 ## 1.6 — 2026-05-19
 
