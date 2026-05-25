@@ -37,10 +37,13 @@ o endpoint `https://api.anthropic.com/api/oauth/usage` para o uso de cota, e
 `https://status.claude.com/api/v2/status.json` para o status operacional. O widget
 roda o script a cada 5 minutos e exibe o resultado na barra.
 
-O teto de cota `(↑XX%)` exibido ao lado do `7d` não tem configuração: o início
-do ciclo é derivado de `seven_day.resets_at` da própria API (o ciclo começa 7
-dias antes do próximo reset). Se a Anthropic mudar o dia/hora do reset, o widget
-se ajusta sozinho no refresh seguinte.
+O teto de cota `(↑XX%)` exibido ao lado do `7d` é calculado em tempo real por
+minuto: `minutos_decorridos / (7 × 24 × 60) × 100`. Sobe ~0,05% a cada atualização
+de 5 minutos. O início do ciclo é derivado de `seven_day.resets_at` da própria API;
+se a Anthropic mudar o dia/hora do reset, o widget se ajusta sozinho.
+
+O script mantém um cache local de 60s em `~/.cache/claudebar/usage.json` e renova
+automaticamente o token OAuth quando ele está prestes a expirar.
 
 ## Instalação
 
